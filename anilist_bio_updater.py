@@ -15,6 +15,7 @@ import json
 import os
 import random
 import sys
+import urllib.error
 import urllib.request
 from zoneinfo import ZoneInfo
 
@@ -127,7 +128,10 @@ FAV_N = 0          # own cover-image favourites section (0 = off, 6 = on). Use i
 
 
 def gql(query, variables=None, token=None):
-    headers = {"Content-Type": "application/json", "Accept": "application/json"}
+    # AniList sits behind Cloudflare, which rejects Python's default User-Agent with a 403,
+    # so we send our own.
+    headers = {"Content-Type": "application/json", "Accept": "application/json",
+               "User-Agent": "anilist-bio-updater/1.0 (+https://github.com/RustyUjjwal/anilist-bio)"}
     if token:
         headers["Authorization"] = "Bearer " + token
     req = urllib.request.Request(
@@ -135,8 +139,12 @@ def gql(query, variables=None, token=None):
         data=json.dumps({"query": query, "variables": variables or {}}).encode(),
         headers=headers,
     )
-    with urllib.request.urlopen(req, timeout=30) as r:
-        data = json.load(r)
+    try:
+        with urllib.request.urlopen(req, timeout=30) as r:
+            data = json.load(r)
+    except urllib.error.HTTPError as e:
+        body = e.read().decode("utf-8", "replace")[:300].replace("\n", " ")
+        raise RuntimeError(f"AniList returned HTTP {e.code}: {body}") from None
     if data.get("errors"):
         raise RuntimeError(data["errors"])
     return data["data"]
@@ -252,7 +260,9 @@ def init_user():
         elif token:
             v = gql("query { Viewer { id name } }", token=token)["Viewer"]
             USER, CARD_USER_ID = v["name"], v["id"]
-    except Exception as exc:   # keep the defaults rather than fail the run
+    except Exception as exc:
+        if "--push" in sys.argv:   # never push someone else's data to this token's profile
+            sys.exit(f"Could not look up your AniList user: {exc}")
         print("Could not look up the user, using defaults:", exc, file=sys.stderr)
 
 
