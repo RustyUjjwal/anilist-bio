@@ -1,1 +1,31 @@
+name: Update AniList bio
 
+on:
+  schedule:
+    - cron: "0 */6 * * *"   # every 6 hours (UTC); change as you like
+    - cron: "35 18 * * *"   # 00:05 IST, so the new day's theme starts right after midnight
+  workflow_dispatch:         # adds a "Run workflow" button in the Actions tab
+
+permissions:
+  contents: read
+
+concurrency:
+  group: anilist-bio
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Rebuild bio and push to AniList
+        env:
+          ANILIST_TOKEN: ${{ secrets.ANILIST_TOKEN }}
+          BIO_THEME: ${{ vars.BIO_THEME || 'auto' }}   # auto = 2-2-2 days + 1 random; or pin blackclover / sololeveling / grimjow
+        run: python anilist_bio_updater.py --push
