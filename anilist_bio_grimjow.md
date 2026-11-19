@@ -11,7 +11,7 @@ img800(https://raw.githubusercontent.com/RustyUjjwal/anilist-bio/main/anilist-pr
 Hey, I'm **Jow**. I mostly live in fantasy, action and reincarnation stories, from Chinese donghua marathons to long-running manhwa.
 
 ~~~
-img260(https://raw.githubusercontent.com/RustyUjjwal/anilist-bio/main/grimjow-wanted.jpg)
+img260(https://raw.githubusercontent.com/RustyUjjwal/anilist-bio/main/grimjow-wanted.png)
 ~~~
 
 ---
