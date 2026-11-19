@@ -20,6 +20,11 @@ from zoneinfo import ZoneInfo
 
 USER = "GrimJow22"
 API = "https://graphql.anilist.co"
+# Where banner/poster files are served from. In GitHub Actions this is your own repo
+# (set automatically); the fallback is only used for local runs.
+ASSET_BASE = ("https://raw.githubusercontent.com/%s/main/" % os.environ["GITHUB_REPOSITORY"]
+              if os.environ.get("GITHUB_REPOSITORY")
+              else "https://raw.githubusercontent.com/RustyUjjwal/anilist-bio/main/")
 
 # ---- static parts: edit these freely --------------------------------------
 BANNER = "https://YOUR-BANNER-IMAGE-URL.jpg"   # leave "" to skip the banner
@@ -59,7 +64,7 @@ CARD_USER_ID = 7824217          # your numeric AniList ID (more reliable than th
 THEMES = {
     "blackclover": {   # charcoal black, soft sage green, matches the banner art
         "symbol": "\u2618",
-        "banner": "https://raw.githubusercontent.com/RustyUjjwal/anilist-bio/main/black-clover-banner.png",   # upload banners/ files to your repo root
+        "banner": "black-clover-banner.png",   # file in your repo root (or a full https URL)
         "tagline": None,   # None = use TAGLINE above
         "preset": "default",
         "colors": ("&titleColor=%239fb58f&backgroundColor=%230e100f&textColor=%23dfe4dc"
@@ -67,7 +72,7 @@ THEMES = {
     },
     "sololeveling": {  # near-black navy, muted steel blue, matches the banner art
         "symbol": "\u2694",
-        "banner": "https://raw.githubusercontent.com/RustyUjjwal/anilist-bio/main/solo-levelling-banner.png",
+        "banner": "solo-levelling-banner.png",
         "tagline": "arise &bull; isekai addict &bull; action lover &bull; one more episode, I swear",
         "preset": "default",
         "colors": ("&titleColor=%239aa8d8&backgroundColor=%23070a10&textColor=%23d5d9e8"
@@ -75,8 +80,8 @@ THEMES = {
     },
     "grimjow": {       # deep crimson and warm cream from the oni banner
         "symbol": "\u2694",
-        "banner": "https://raw.githubusercontent.com/RustyUjjwal/anilist-bio/main/anilist-profile-banner-enlarged.png",
-        "poster": "https://raw.githubusercontent.com/RustyUjjwal/anilist-bio/main/grimjow-wanted.jpg",   # wanted poster shown under About me
+        "banner": "anilist-profile-banner-enlarged.png",
+        "poster": "grimjow-wanted.jpg",   # wanted poster shown under About me
         "tagline": None,
         "preset": "default",
         "colors": ("&titleColor=%23e9b58f&backgroundColor=%23140a0a&textColor=%23efe0d4"
@@ -228,6 +233,29 @@ def encode_emoji(text):
     return "".join(f"&#{ord(c)};" if ord(c) > 0xFFFF else c for c in text)
 
 
+def _asset(path):
+    """A bare file name means a file in your repo root; full URLs pass through."""
+    return path if not path or path.startswith("http") else ASSET_BASE + path
+
+
+def init_user():
+    """Who the bio is for. Order: ANILIST_USER env, else the owner of ANILIST_TOKEN
+    (so a fork needs no configuration), else the defaults at the top of this file."""
+    global USER, CARD_USER_ID
+    name, token = os.environ.get("ANILIST_USER"), os.environ.get("ANILIST_TOKEN")
+    try:
+        if name:
+            USER = name
+            CARD_USER_ID = int(os.environ.get("ANICARDS_USER_ID") or
+                               gql("query ($n: String) { User(name: $n) { id } }",
+                                   {"n": name})["User"]["id"])
+        elif token:
+            v = gql("query { Viewer { id name } }", token=token)["Viewer"]
+            USER, CARD_USER_ID = v["name"], v["id"]
+    except Exception as exc:   # keep the defaults rather than fail the run
+        print("Could not look up the user, using defaults:", exc, file=sys.stderr)
+
+
 def text_sections():
     """The sections the cards now replace. Only used when TEXT_SECTIONS = True."""
     st = gql(STATS_Q, {"name": USER})["User"]["statistics"]
@@ -255,13 +283,13 @@ def text_sections():
 
 def build():
     L = []
-    banner = _T.get("banner") or BANNER
+    banner = _asset(_T.get("banner") or BANNER)
     if banner and "YOUR-" not in banner:
         L += [f"img800({banner})", ""]
     L += ["~~~", f"# {_T['symbol']} {USER} {_T['symbol']}", f"*{_T['tagline'] or TAGLINE}*", "~~~", "", "---", "",
           "## About me", ABOUT, ""]
     if _T.get("poster"):
-        L += ["~~~", f"img{POSTER_W}({_T['poster']})", "~~~", ""]
+        L += ["~~~", f"img{POSTER_W}({_asset(_T['poster'])})", "~~~", ""]
     L += ["---", ""]
     if CARD_ROWS:
         L += ["## Stats cards", cards_block(), "", "---", ""]
@@ -293,7 +321,8 @@ def push(bio):
 
 
 if __name__ == "__main__":
-    print("Theme:", THEME, file=sys.stderr)
+    init_user()
+    print("Theme:", THEME, "| user:", USER, file=sys.stderr)
     bio = build()
     out = _arg("--out")
     if out:
