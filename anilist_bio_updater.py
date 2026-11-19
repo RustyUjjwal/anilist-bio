@@ -325,7 +325,7 @@ def push(bio):
     if current.strip() == bio.strip():
         print("Bio unchanged, nothing to push.")
         return
-    gql("mutation ($about: String) { SaveUser(about: $about) { id } }",
+    gql("mutation ($about: String) { UpdateUser(about: $about) { id } }",
         {"about": bio}, token=token)
     print("Bio updated.")
 
