@@ -63,102 +63,113 @@ CARD_USER_ID = 7824217          # your numeric AniList ID (more reliable than th
 # Colours are hex with %23 in place of #. "preset" is an AniCards palette name; the
 # colour overrides sit on top of it. Add your own theme by copying an entry.
 THEMES = {
-    "blackclover": {   # charcoal black, soft sage green, matches the banner art
+    "blackclover": {     # charcoal black, soft sage green
         "symbol": "\u2618",
-        "banner": "black-clover-banner.png",   # file in your repo root (or a full https URL)
+        "banner": "banners/black-clover-banner.png",
+        "poster": "posters-web/blackclover.jpg",
         "tagline": None,   # None = use TAGLINE above
         "preset": "default",
         "colors": ("&titleColor=%239fb58f&backgroundColor=%230e100f&textColor=%23dfe4dc"
                    "&circleColor=%235d7a5a&borderColor=%233f4d40"),
     },
-    "sololeveling": {  # near-black navy, muted steel blue, matches the banner art
+    "sololeveling": {     # near-black navy, muted steel blue
         "symbol": "\u2694",
-        "banner": "solo-levelling-banner.png",
-        "tagline": "arise &bull; isekai addict &bull; action lover &bull; one more episode, I swear",
+        "banner": "banners/solo-levelling-banner.png",
+        "poster": "posters-web/sololeveling.jpg",
+        "tagline": "arise &bull; isekai addict &bull; action lover &bull; one more episode, I swear",   # None = use TAGLINE above
         "preset": "default",
         "colors": ("&titleColor=%239aa8d8&backgroundColor=%23070a10&textColor=%23d5d9e8"
                    "&circleColor=%233a4f8f&borderColor=%232f3858"),
     },
-    "grimjow": {       # deep crimson and warm cream from the oni banner
+    "grimjow": {     # signature bio: deep crimson and warm cream
         "symbol": "\u2694",
-        "banner": "anilist-profile-banner-enlarged.png",
-        "poster": "grimjow-wanted.jpg",   # wanted poster shown under About me
-        "tagline": None,
+        "banner": "banners/anilist-profile-banner-enlarged.png",
+        "poster": "posters-web/grimjow.jpg",
+        "tagline": None,   # None = use TAGLINE above
         "preset": "default",
         "colors": ("&titleColor=%23e9b58f&backgroundColor=%23140a0a&textColor=%23efe0d4"
                    "&circleColor=%23a8332b&borderColor=%23552020"),
     },
-    "onepiece": {    # deep ocean navy with treasure gold
-        "symbol": "\u2693",
-        "banner": "onepiece-banner.png",
-        "tagline": "set sail &bull; isekai addict &bull; action lover &bull; one more episode, I swear",
-        "preset": "default",
-        "colors": ("&titleColor=%23d9b765&backgroundColor=%230a1220&textColor=%23dfe6f0"
-                   "&circleColor=%23b58f3f&borderColor=%2321365a"),
-    },
-    "bleach": {     # black and white with a soft orange
+    "bleach": {     # black and white with red and blue accents
         "symbol": "\u2620",
-        "banner": "bleach-banner.png",
-        "tagline": "bankai &bull; isekai addict &bull; action lover &bull; one more episode, I swear",
+        "banner": "banners/bleach-banner.png",
+        "poster": ["posters-web/bleach.jpg", "posters-web/bleach2.jpg"],
+        "tagline": "bankai &bull; isekai addict &bull; action lover &bull; one more episode, I swear",   # None = use TAGLINE above
         "preset": "default",
         "colors": ("&titleColor=%23e6e6e8&backgroundColor=%230c0c0e&textColor=%23d9d9dc"
-                   "&circleColor=%23c97a2c&borderColor=%2333333a"),
+                   "&circleColor=%23b83a3a&borderColor=%232c3563"),
     },
-    "attackontitan": {     # parchment and survey-corps green
+    "attackontitan": {     # black with gold and rust red
         "symbol": "\u2720",
-        "banner": "attackontitan-banner.png",
-        "tagline": "dedicate your heart &bull; isekai addict &bull; action lover &bull; one more episode, I swear",
+        "banner": "banners/attackontitan-banner.png",
+        "poster": "posters-web/attackontitan.jpg",
+        "tagline": "dedicate your heart &bull; isekai addict &bull; action lover &bull; one more episode, I swear",   # None = use TAGLINE above
         "preset": "default",
-        "colors": ("&titleColor=%23c9b48a&backgroundColor=%23110f0b&textColor=%23e0d9c9"
-                   "&circleColor=%23667a55&borderColor=%23393526"),
+        "colors": ("&titleColor=%23e0c070&backgroundColor=%230a0908&textColor=%23e8e0cf"
+                   "&circleColor=%23a63d2f&borderColor=%233b2a1d"),
     },
     "haikyuu": {     # crow black with warm orange
         "symbol": "\u2727",
-        "banner": "haikyuu-banner.png",
-        "tagline": "fly &bull; isekai addict &bull; action lover &bull; one more episode, I swear",
+        "banner": "banners/haikyuu-banner.png",
+        "poster": "posters-web/haikyuu.jpg",
+        "tagline": "fly &bull; isekai addict &bull; action lover &bull; one more episode, I swear",   # None = use TAGLINE above
         "preset": "default",
         "colors": ("&titleColor=%23dc8a45&backgroundColor=%230f0e11&textColor=%23ececec"
                    "&circleColor=%23d27a35&borderColor=%2339291b"),
     },
-    "mobpsycho": {     # deep violet, soft psychic purple
+    "mobpsycho": {     # near-black with a soft coral red
         "symbol": "\u2756",
-        "banner": "mobpsycho-banner.png",
-        "tagline": "one hundred percent &bull; isekai addict &bull; action lover &bull; one more episode, I swear",
+        "banner": "banners/mobpsycho-banner.png",
+        "poster": "posters-web/mobpsycho.jpg",
+        "tagline": "one hundred percent &bull; isekai addict &bull; action lover &bull; one more episode, I swear",   # None = use TAGLINE above
         "preset": "default",
-        "colors": ("&titleColor=%23b9a3e8&backgroundColor=%23100d18&textColor=%23e6e1f2"
-                   "&circleColor=%237e5bc0&borderColor=%23342b52"),
+        "colors": ("&titleColor=%23e0745c&backgroundColor=%230b0a0b&textColor=%23ece6e2"
+                   "&circleColor=%23c9503c&borderColor=%233a1f1c"),
     },
-    "naruto": {     # night-sky navy with a soft orange
+    "naruto": {     # black with a soft sunset orange
         "symbol": "\u272a",
-        "banner": "naruto-banner.png",
-        "tagline": "believe it &bull; isekai addict &bull; action lover &bull; one more episode, I swear",
+        "banner": "banners/naruto-banner.png",
+        "poster": "posters-web/naruto.jpg",
+        "tagline": "believe it &bull; isekai addict &bull; action lover &bull; one more episode, I swear",   # None = use TAGLINE above
         "preset": "default",
-        "colors": ("&titleColor=%23e0903f&backgroundColor=%230e1018&textColor=%23eef0f5"
-                   "&circleColor=%23d17a30&borderColor=%232a3350"),
+        "colors": ("&titleColor=%23e8913e&backgroundColor=%230b0b0e&textColor=%23eef0f5"
+                   "&circleColor=%23d17a30&borderColor=%233a2a1c"),
     },
-    "demonslayer": {     # checkered-haori green on near-black
+    "demonslayer": {     # haori green with a flame orange
         "symbol": "\u273f",
-        "banner": "demonslayer-banner.png",
-        "tagline": "total concentration &bull; isekai addict &bull; action lover &bull; one more episode, I swear",
+        "banner": "banners/demonslayer-banner.png",
+        "poster": "posters-web/demonslayer.jpg",
+        "tagline": "total concentration &bull; isekai addict &bull; action lover &bull; one more episode, I swear",   # None = use TAGLINE above
         "preset": "default",
-        "colors": ("&titleColor=%235fa88a&backgroundColor=%230a0f0d&textColor=%23e8efe9"
-                   "&circleColor=%23468a72&borderColor=%2324382f"),
+        "colors": ("&titleColor=%236fb59a&backgroundColor=%230a0b0b&textColor=%23e8efe9"
+                   "&circleColor=%23c9772f&borderColor=%232f3a33"),
     },
     "slime": {     # deep sea blue with slime-blue accents
         "symbol": "\u25c6",
-        "banner": "slime-banner.png",
-        "tagline": "rimuru would approve &bull; isekai addict &bull; action lover &bull; one more episode, I swear",
+        "banner": "banners/slime-banner.png",
+        "poster": "posters-web/slime.jpg",
+        "tagline": "rimuru would approve &bull; isekai addict &bull; action lover &bull; one more episode, I swear",   # None = use TAGLINE above
         "preset": "default",
         "colors": ("&titleColor=%236fc5e8&backgroundColor=%2308141c&textColor=%23e4f2f8"
                    "&circleColor=%233a9bc4&borderColor=%231d4558"),
     },
     "jujutsukaisen": {     # cursed-energy indigo on black
         "symbol": "\u2726",
-        "banner": "jujutsukaisen-banner.png",
-        "tagline": "domain expansion &bull; isekai addict &bull; action lover &bull; one more episode, I swear",
+        "banner": "banners/jujutsukaisen-banner.png",
+        "poster": "posters-web/jujutsukaisen.jpg",
+        "tagline": "domain expansion &bull; isekai addict &bull; action lover &bull; one more episode, I swear",   # None = use TAGLINE above
         "preset": "default",
         "colors": ("&titleColor=%238aa0ff&backgroundColor=%230a0912&textColor=%23e6e9fb"
                    "&circleColor=%235a6fd6&borderColor=%232a2e55"),
+    },
+    "onepiece": {     # parchment cream and treasure gold
+        "symbol": "\u2693",
+        "banner": "banners/onepiece-banner.png",
+        "poster": "posters-web/onepiece.jpg",
+        "tagline": "set sail &bull; isekai addict &bull; action lover &bull; one more episode, I swear",   # None = use TAGLINE above
+        "preset": "default",
+        "colors": ("&titleColor=%23e4d6b0&backgroundColor=%230a0907&textColor=%23e9e4d6"
+                   "&circleColor=%23b58f3f&borderColor=%233a3220"),
     },
 }
 
@@ -202,7 +213,7 @@ CARD_STYLE = _T["colors"] + "&borderRadius=8"   # extra look settings added to e
 CARD_W = 340       # px per card; two per row must fit your profile width (lower it if they stack)
 # Per-card width overrides (px) by cardType; anything not listed uses CARD_W.
 CARD_WIDTHS = {"animeGenreSynergy": 290}
-POSTER_W = 260    # width of the wanted poster (grimjow theme)
+POSTER_W = 260    # width of each poster under "About me" (a theme can have one or several)
 FAV_N = 0          # own cover-image favourites section (0 = off, 6 = on). Use it if the AniCards grids fail
 # ----------------------------------------------------------------------------
 
@@ -378,8 +389,10 @@ def build():
         L += [f"img800({banner})", ""]
     L += ["~~~", f"# {_T['symbol']} {USER} {_T['symbol']}", f"*{_T['tagline'] or TAGLINE}*", "~~~", "", "---", "",
           "## About me", ABOUT, ""]
-    if _T.get("poster"):
-        L += ["~~~", f"img{POSTER_W}({_asset(_T['poster'])})", "~~~", ""]
+    posters = _T.get("poster") or []
+    if posters:
+        posters = [posters] if isinstance(posters, str) else posters
+        L += ["~~~", " ".join(f"img{POSTER_W}({_asset(x)})" for x in posters), "~~~", ""]
     L += ["---", ""]
     if CARD_ROWS:
         L += ["## Stats cards", cards_block(), "", "---", ""]

@@ -4,7 +4,7 @@ Builds an AniList bio with stat cards and a themed banner, and keeps it updated 
 Actions. Fork it, add one secret, and it works for **your** AniList account.
 
 - Cards come from [AniCards](https://github.com/RLAlpha49/AniCards) (anime/manga stats, favourites, status overview, genre synergy, currently watching/reading).
-- Twelve themes rotate on a schedule: Grimjow (the signature bio), Attack on Titan, Naruto, Demon Slayer, That Time I Got Reincarnated as a Slime, Mob Psycho 100, Haikyu!!, Jujutsu Kaisen, Bleach, Solo Leveling, Black Clover and One Piece. Each has its own colours, title symbol and banner.
+- Twelve themes rotate on a schedule: Grimjow (the signature bio), Attack on Titan, Naruto, Demon Slayer, That Time I Got Reincarnated as a Slime, Mob Psycho 100, Haikyu!!, Jujutsu Kaisen, Bleach, Solo Leveling, Black Clover and One Piece. Each has its own colours, title symbol, translucent banner and a poster under "About me".
 - No server needed. The workflow talks to AniList directly.
 
 ## Quick start
@@ -40,10 +40,11 @@ At the top of `anilist_bio_updater.py`:
 | `CARD_W`, `CARD_WIDTHS` | Card widths in px. Lower them if cards stack on your profile. |
 | `TEXT_SECTIONS`, `FAV_N` | Optional text sections and cover-image favourites. Both off by default. |
 
-**Images**: put your banner (and poster) files in the repo root and point a theme's `banner` /
-`poster` at the file name. The included images belong to the original owner. Replace them,
-and delete the `poster` line from a theme if you don't want one. Use web-sized images
-(a few hundred KB; huge files may not load on AniList).
+**Images**: banners live in `banners/` and web-sized posters in `posters-web/`. A theme's
+`banner` / `poster` entries point at those files (one poster or a list of posters). The included
+artwork belongs to the original owner, so replace it with your own. Keep images web-sized
+(a few hundred KB; huge files may not load on AniList). Large originals can live in other
+folders (like `images/` and `posters/`) and are never read by the workflow.
 
 **Pin one theme**: add a repo variable `BIO_THEME` (Settings > Secrets and variables > Actions >
 Variables) set to a theme name. Remove it to go back to the rotation.
@@ -71,5 +72,5 @@ by hand if you only want a one-off.
 
 - `anilist_bio_updater.py`: builds the bio and pushes it.
 - `.github/workflows/update-bio.yml`: the schedule.
-- Banner/poster images in the root. Eight of the banners are plain generated title cards (no character art) and two use translucent artwork, so swap in your own art if you like.
+- `banners/` and `posters-web/`: the images the bios link to.
 - `reference-bios/`: sample output for each theme (reference only, not used by the workflow).
