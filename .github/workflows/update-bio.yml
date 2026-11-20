@@ -27,5 +27,5 @@ jobs:
       - name: Rebuild bio and push to AniList
         env:
           ANILIST_TOKEN: ${{ secrets.ANILIST_TOKEN }}
-          BIO_THEME: ${{ vars.BIO_THEME || 'auto' }}   # auto = 2-2-2 days + 1 random; or pin blackclover / sololeveling / grimjow
+          BIO_THEME: ${{ vars.BIO_THEME || 'auto' }}   # auto = a new theme every day; or pin one: grimjow, bleach, naruto, ... (see THEMES)
         run: python anilist_bio_updater.py --push
