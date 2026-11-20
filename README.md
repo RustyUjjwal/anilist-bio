@@ -4,7 +4,7 @@ Builds an AniList bio with stat cards and a themed banner, and keeps it updated 
 Actions. Fork it, add one secret, and it works for **your** AniList account.
 
 - Cards come from [AniCards](https://github.com/RLAlpha49/AniCards) (anime/manga stats, favourites, status overview, genre synergy, currently watching/reading).
-- Three themes included (Black Clover, Solo Leveling, Grimjow) that rotate on a schedule.
+- Twelve themes rotate on a schedule: Grimjow (the signature bio), Attack on Titan, Naruto, Demon Slayer, That Time I Got Reincarnated as a Slime, Mob Psycho 100, Haikyu!!, Jujutsu Kaisen, Bleach, Solo Leveling, Black Clover and One Piece. Each has its own colours, title symbol and banner.
 - No server needed. The workflow talks to AniList directly.
 
 ## Quick start
@@ -34,7 +34,7 @@ At the top of `anilist_bio_updater.py`:
 |---|---|
 | `TAGLINE`, `ABOUT`, `FUN_FACT`, `QUOTE`, `QUOTE_BY`, `LINKS` | The text in your bio. These are the original owner's, so change them. |
 | `THEMES` | Colours, title symbol, banner and optional poster per theme. Copy an entry to add your own. |
-| `SCHEDULE` | Which theme on which weekday (Monday first). Use `"random"` for a random day. |
+| `ROTATION`, `DAYS_PER_THEME`, `ROTATION_START` | By default a new theme every day, walking through `ROTATION` in order. Set `DAYS_PER_THEME = 2` to keep each theme longer, `RANDOM_DAY = True` to add a random day per cycle, or `ROTATION` to a shorter list. |
 | `BIO_TZ` | Timezone that decides when the day changes, e.g. `"America/New_York"`. |
 | `CARD_ROWS` | Which cards show and how they sit. Cards in the same inner list sit side by side. |
 | `CARD_W`, `CARD_WIDTHS` | Card widths in px. Lower them if cards stack on your profile. |
@@ -71,5 +71,5 @@ by hand if you only want a one-off.
 
 - `anilist_bio_updater.py`: builds the bio and pushes it.
 - `.github/workflows/update-bio.yml`: the schedule.
-- Banner/poster images in the root.
-- `anilist_bio_*.md`: sample output for each theme (reference only).
+- Banner/poster images in the root. Eight of the banners are plain generated title cards (no character art) and two use translucent artwork, so swap in your own art if you like.
+- `reference-bios/`: sample output for each theme (reference only, not used by the workflow).

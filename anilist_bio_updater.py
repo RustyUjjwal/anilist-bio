@@ -59,7 +59,7 @@ CARD_ROWS = [
 # True  = also write those text sections from live data.
 TEXT_SECTIONS = False
 CARD_USER_ID = 7824217          # your numeric AniList ID (more reliable than the username)
-# ---- themes: blackclover, sololeveling, grimjow. Pick one with --theme NAME or the BIO_THEME env var ---------------
+# ---- themes: pick one with --theme NAME or the BIO_THEME env var ---------------
 # Colours are hex with %23 in place of #. "preset" is an AniCards palette name; the
 # colour overrides sit on top of it. Add your own theme by copying an entry.
 THEMES = {
@@ -88,6 +88,78 @@ THEMES = {
         "colors": ("&titleColor=%23e9b58f&backgroundColor=%23140a0a&textColor=%23efe0d4"
                    "&circleColor=%23a8332b&borderColor=%23552020"),
     },
+    "onepiece": {    # deep ocean navy with treasure gold
+        "symbol": "\u2693",
+        "banner": "onepiece-banner.png",
+        "tagline": "set sail &bull; isekai addict &bull; action lover &bull; one more episode, I swear",
+        "preset": "default",
+        "colors": ("&titleColor=%23d9b765&backgroundColor=%230a1220&textColor=%23dfe6f0"
+                   "&circleColor=%23b58f3f&borderColor=%2321365a"),
+    },
+    "bleach": {     # black and white with a soft orange
+        "symbol": "\u2620",
+        "banner": "bleach-banner.png",
+        "tagline": "bankai &bull; isekai addict &bull; action lover &bull; one more episode, I swear",
+        "preset": "default",
+        "colors": ("&titleColor=%23e6e6e8&backgroundColor=%230c0c0e&textColor=%23d9d9dc"
+                   "&circleColor=%23c97a2c&borderColor=%2333333a"),
+    },
+    "attackontitan": {     # parchment and survey-corps green
+        "symbol": "\u2720",
+        "banner": "attackontitan-banner.png",
+        "tagline": "dedicate your heart &bull; isekai addict &bull; action lover &bull; one more episode, I swear",
+        "preset": "default",
+        "colors": ("&titleColor=%23c9b48a&backgroundColor=%23110f0b&textColor=%23e0d9c9"
+                   "&circleColor=%23667a55&borderColor=%23393526"),
+    },
+    "haikyuu": {     # crow black with warm orange
+        "symbol": "\u2727",
+        "banner": "haikyuu-banner.png",
+        "tagline": "fly &bull; isekai addict &bull; action lover &bull; one more episode, I swear",
+        "preset": "default",
+        "colors": ("&titleColor=%23dc8a45&backgroundColor=%230f0e11&textColor=%23ececec"
+                   "&circleColor=%23d27a35&borderColor=%2339291b"),
+    },
+    "mobpsycho": {     # deep violet, soft psychic purple
+        "symbol": "\u2756",
+        "banner": "mobpsycho-banner.png",
+        "tagline": "one hundred percent &bull; isekai addict &bull; action lover &bull; one more episode, I swear",
+        "preset": "default",
+        "colors": ("&titleColor=%23b9a3e8&backgroundColor=%23100d18&textColor=%23e6e1f2"
+                   "&circleColor=%237e5bc0&borderColor=%23342b52"),
+    },
+    "naruto": {     # night-sky navy with a soft orange
+        "symbol": "\u272a",
+        "banner": "naruto-banner.png",
+        "tagline": "believe it &bull; isekai addict &bull; action lover &bull; one more episode, I swear",
+        "preset": "default",
+        "colors": ("&titleColor=%23e0903f&backgroundColor=%230e1018&textColor=%23eef0f5"
+                   "&circleColor=%23d17a30&borderColor=%232a3350"),
+    },
+    "demonslayer": {     # checkered-haori green on near-black
+        "symbol": "\u273f",
+        "banner": "demonslayer-banner.png",
+        "tagline": "total concentration &bull; isekai addict &bull; action lover &bull; one more episode, I swear",
+        "preset": "default",
+        "colors": ("&titleColor=%235fa88a&backgroundColor=%230a0f0d&textColor=%23e8efe9"
+                   "&circleColor=%23468a72&borderColor=%2324382f"),
+    },
+    "slime": {     # deep sea blue with slime-blue accents
+        "symbol": "\u25c6",
+        "banner": "slime-banner.png",
+        "tagline": "rimuru would approve &bull; isekai addict &bull; action lover &bull; one more episode, I swear",
+        "preset": "default",
+        "colors": ("&titleColor=%236fc5e8&backgroundColor=%2308141c&textColor=%23e4f2f8"
+                   "&circleColor=%233a9bc4&borderColor=%231d4558"),
+    },
+    "jujutsukaisen": {     # cursed-energy indigo on black
+        "symbol": "\u2726",
+        "banner": "jujutsukaisen-banner.png",
+        "tagline": "domain expansion &bull; isekai addict &bull; action lover &bull; one more episode, I swear",
+        "preset": "default",
+        "colors": ("&titleColor=%238aa0ff&backgroundColor=%230a0912&textColor=%23e6e9fb"
+                   "&circleColor=%235a6fd6&borderColor=%232a2e55"),
+    },
 }
 
 
@@ -96,19 +168,27 @@ def _arg(flag):
 
 
 # ---- rotation used by --theme auto (the workflow default) ----------------------
-# Monday to Sunday: 2 days of each theme, then 1 random day. The random pick is
-# seeded by the date, so every run on the same day gives the same theme.
-SCHEDULE = ["blackclover", "blackclover", "sololeveling", "sololeveling",
-            "grimjow", "grimjow", "random"]
+# The theme changes every day and walks through ROTATION in order, then starts over
+# (12 themes = a 12-day cycle). Set DAYS_PER_THEME = 2 to keep each theme for 2 days, and
+# RANDOM_DAY = True to add one random-theme day at the end of every cycle (picked by date,
+# so every run on the same day gives the same theme).
 BIO_TZ = "Asia/Kolkata"      # the day changes at midnight in this timezone
+DAYS_PER_THEME = 1           # 1 = a new theme every day
+RANDOM_DAY = False           # True = add 1 random-theme day at the end of each cycle
+ROTATION_START = datetime.date(2026, 11, 20)   # day 1 of the cycle: first theme starts here
+ROTATION = ["grimjow", "attackontitan", "naruto", "demonslayer", "slime", "mobpsycho",
+            "haikyuu", "jujutsukaisen", "bleach", "sololeveling", "blackclover", "onepiece"]
+# (None would mean every theme in THEMES. "grimjow" is the signature bio, first in the list.)
 
 
 def pick_theme(today=None):
     today = today or datetime.datetime.now(ZoneInfo(BIO_TZ)).date()
-    name = SCHEDULE[today.weekday()]
-    if name == "random":
-        name = random.Random(today.isoformat()).choice(list(THEMES))
-    return name
+    names = ROTATION or list(THEMES)
+    cycle = DAYS_PER_THEME * len(names) + (1 if RANDOM_DAY else 0)
+    i = (today - ROTATION_START).days % cycle
+    if RANDOM_DAY and i == cycle - 1:                    # the random day
+        return random.Random(today.isoformat()).choice(list(THEMES))
+    return names[i // DAYS_PER_THEME]
 
 
 THEME = _arg("--theme") or os.environ.get("BIO_THEME") or "auto"
