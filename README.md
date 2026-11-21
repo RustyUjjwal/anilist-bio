@@ -226,16 +226,21 @@ Card types used here: `statusCompletionOverview`, `animeStats`, `mangaStats`, `f
 originals can stay on your computer. They only make the repo heavy, so you can delete
 `images/` and `posters/` from your fork.
 
-**Make web-sized files from your own artwork** (needs [Python](https://www.python.org/downloads/)
-and one install: `pip install pillow numpy`):
+**Make web-sized files from your own artwork** with the two helper tools in `tools/`. You need
+[Python](https://www.python.org/downloads/) and one install: `pip install pillow numpy`.
 
 ```
-python tools/banner_maker.py banner my-art.jpg banners/mytheme-banner.png
-python tools/banner_maker.py poster my-poster.png posters-web/mytheme.jpg
+python tools/banner_maker.py my-art.jpg banners/mytheme-banner.png
+python tools/poster_maker.py my-poster.png posters-web/mytheme.jpg
 ```
 
-Banner options: `--opacity 0.75` (how solid; `0.3` is very faint) and `--fit` (keep the whole
-picture, good for logos). To upload files on GitHub: open the folder, **Add file > Upload files**.
+- **`banner_maker.py`** crops your picture to 1200 x 600 and makes it translucent with soft
+  edges. Options: `--opacity 0.75` (how solid; `0.3` is very faint) and `--fit` (keep the whole
+  picture instead of cropping, good for logos). Save it as a `.png` so the transparency stays.
+- **`poster_maker.py`** shrinks a big poster to a small JPG. Options: `--width 700` and
+  `--quality 86`. A poster of 8 MB usually becomes about 200 KB.
+
+To upload files on GitHub: open the folder, then **Add file > Upload files**.
 
 **Only use artwork you are allowed to use.** The included art belongs to its owners.
 
@@ -292,7 +297,8 @@ anilist_bio_updater.py        the script that builds and pushes the bio
 banners/                      one banner per theme
 posters-web/                  one web-sized poster per theme
 reference-bios/               sample output of every theme (not used by the workflow)
-tools/banner_maker.py          makes banners (and poster files) from your artwork
+tools/banner_maker.py         makes a translucent banner from your artwork
+tools/poster_maker.py         shrinks a poster to a small web-sized file
 images/, posters/             original large artwork (optional, not used)
 ```
 
